@@ -124,6 +124,16 @@ void BSMap::moveChar()
     string choices="";
     getline(cin,choices);
     int choice=atoi(choices.c_str());
+    if(choice > moves.size())
+    {
+        cout<<"Not a valid entry"<<endl;
+        for(int i=0;i<=moves.size()+1;i++)//resets the vector so we dont get repeating moves
+        {
+            moves.pop_back();
+        }
+
+        return;
+    }
     pos=moves[choice];
     cout<<"You are now at the dungeon "<<pos->name<<endl;
 
@@ -375,10 +385,20 @@ std::vector<monster*> BSMap::damageTurns(int playerDam,vector<monster*> mons)
         {
             cout<<i<<": "<<mons[i]->name<<endl;
         }
-        string mon="";
+        string mon;
         int moni=0;
         getline(cin,mon);
         moni=atoi(mon.c_str());
+        while(moni > mons.size())
+        {
+            cout<<"Who do you attack?"<<endl;
+            for(int i=0;i<mons.size();i++)
+            {
+                cout<<i<<": "<<mons[i]->name<<endl;
+            }
+            getline(cin,mon);
+            moni=atoi(mon.c_str());
+        }
         int dam=(playerDam)-(mons[moni]->def);
         cout<<"You did "<<dam<<" damage!"<<endl;
         mons[moni]->hp=(mons[moni]->hp)-(dam);
@@ -464,6 +484,10 @@ void BSMap::combat()
             case 5:
                 cout<<"You run out of the dungeon!"<<endl;
                 return;
+                break;
+            default:
+                cout<<"Not a valid entry"<<endl;
+                break;
         }
     }
     if(pos->start->monsters==0)

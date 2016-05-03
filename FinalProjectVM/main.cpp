@@ -24,6 +24,8 @@ int main()
     BSMap *world=new BSMap();//start new character here / set world map / set dungeon layout
     while(start)
     {
+        while(choice != 3)
+        {
         cout<<"You are resting. What would you like to do next?"<<endl;
         cout<<"1. Go to a dungeon"<<endl;
         cout<<"2. Look at map"<<endl;
@@ -31,7 +33,6 @@ int main()
 
         getline(cin,response);
         choice=atoi(response.c_str());
-
         switch(choice)
         {
             case 1:
@@ -53,6 +54,7 @@ int main()
             start=false;
             cout<<"You have died! Game Over"<<endl;
          }
+     }
 
     }
     return 0;
